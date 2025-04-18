@@ -2,12 +2,12 @@ const express = require('express');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const app = express();
-const port = 3003;
+const port = 3005;
 
 app.use(express.json());
 
 // MongoDB connection
-mongoose.connect('mongodb://mongodb:27017/cafe', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://mongo:27017/cafe')
   .then(() => console.log('Payment Service connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
@@ -48,7 +48,6 @@ app.post('/payments', async (req, res) => {
     res.status(500).json({ error: 'Payment processing failed' });
   }
 });
-
 app.listen(port, () => {
   console.log(`Payment Service running on port ${port}`);
 });

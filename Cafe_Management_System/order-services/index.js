@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const app = express();
-const port = 3002;
+const port = 3004;
 
 app.use(express.json());
 
@@ -12,6 +12,7 @@ const connectMongo = async () => {
   while (retries > 0) {
     try {
       await mongoose.connect('mongodb://mongodb:27017/cafe');
+     
       console.log('Order Service connected to MongoDB');
       break;
     } catch (error) {
@@ -102,7 +103,6 @@ app.get('/orders/:id', async (req, res) => {
   if (!order) return res.status(404).json({ error: 'Order not found' });
   res.json(order);
 });
-
 app.listen(port, () => {
   console.log(`Order Service running on port ${port}`);
 });

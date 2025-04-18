@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const port = 3005;
+const port = 3001;
 
 app.use(express.json());
 
@@ -67,7 +67,6 @@ app.post('/customers/update-points', async (req, res) => {
     res.status(500).json({ error: 'Failed to update loyalty points' });
   }
 });
-
 app.listen(port, () => {
   console.log(`Customer Service running on port ${port}`);
 });

@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+    depends_on:
+      - mongodb
+      - customer-service
+      - inventory-service
+      - menu-service
+      - order-service
+      - payment-service
+
+  customer-service:
+    build:
+      context: ./customer-services
+    ports:
+      - "3001:3000"
+    networks:
+      - backend
+    depends_on:
+      - mongodb
+
+  inventory-service:
+    build:
+      context: ./inventory-services
+    ports:
+      - "3002:3000"
+    networks:
+      - backend
+    depends_on:
+      - mongodb
+
+  menu-service:
+    build:
+      context: ./menu-services
+    ports:
+      - "3003:3000"
+    networks:
+      - backend
+    depends_on:
+      - mongodb
+
+  order-service:
+    build:
+      context: ./order-services
+    ports:
+      - "3004:3000"
+    networks:
+      - backend
+    depends_on:
+      - mongodb
+
+  payment-service:
+    build:
+      context: ./payment-services
+    ports:
+      - "3005:3000"
+    networks:
+      - backend
+    depends_on:
+      - mongodb
+
+networks:
+  backend:
+    driver: bridge

@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const port = 3001;
+const port = 3003;
 
 app.use(express.json());
 
@@ -11,6 +11,7 @@ const connectMongo = async () => {
   while (retries > 0) {
     try {
       await mongoose.connect('mongodb://mongodb:27017/cafe');
+      
       console.log('Menu Service connected to MongoDB');
       break;
     } catch (error) {
@@ -71,7 +72,6 @@ app.get('/menu/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch item' });
   }
 });
-
 app.listen(port, () => {
   console.log(`Menu Service running on port ${port}`);
 });

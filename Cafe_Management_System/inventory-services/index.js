@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const port = 3004;
+const port = 3002;
 
 app.use(express.json());
 
@@ -11,6 +11,7 @@ const connectMongo = async () => {
   while (retries > 0) {
     try {
       await mongoose.connect('mongodb://mongodb:27017/cafe');
+     
       console.log('Inventory Service connected to MongoDB');
       break;
     } catch (error) {
@@ -63,7 +64,6 @@ app.post('/inventory/update', async (req, res) => {
     res.status(500).json({ error: 'Failed to update inventory' });
   }
 });
-
 app.listen(port, () => {
   console.log(`Inventory Service running on port ${port}`);
 });
